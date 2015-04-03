@@ -1,0 +1,14 @@
+{
+  "name": "jethrocarr-digitalocean",
+  "version": "0.0.1",
+  "author": "jethrocarr",
+  "summary": "Small Puppet fact to expose metadata for Digital Ocean virtual machines",
+  "license": "Apache 2.0",
+  "source": "https://github.com/jethrocarr/puppet-digitalocean",
+  "project_page": "https://github.com/jethrocarr/puppet-digitalocean",
+  "issues_url": "https://github.com/jethrocarr/puppet-digitalocean/issues",
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+  ]
+}
+
