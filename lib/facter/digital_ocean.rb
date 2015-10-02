@@ -35,7 +35,7 @@ end
 
 begin
   Timeout::timeout(1) { metadata }
-rescue
+rescue Exception
   puts "Digital Ocean Metadata Unavailable"
 end
 
