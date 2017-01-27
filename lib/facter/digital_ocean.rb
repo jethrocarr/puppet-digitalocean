@@ -35,8 +35,8 @@ end
 
 begin
   Timeout::timeout(1) { metadata }
-rescue Exception
-  puts "Digital Ocean Metadata Unavailable"
+rescue Exception => exc
+  puts "Digital Ocean Metadata Unavailable: #{exc.message}"
 end
 
 # vim: ai ts=2 sts=2 et sw=2 ft=ruby
