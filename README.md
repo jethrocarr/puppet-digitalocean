@@ -28,3 +28,9 @@ These are the same as any other fact, you can simply read them with $::name, eg:
       notify { "You are running on digital ocean in region: ${::digital_ocean_region}": }
     }
 
+
+# Troubleshooting
+
+If the fact doesn't work for some reason, run with `facter --debug` to get any
+errors being thrown.
+
