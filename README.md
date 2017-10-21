@@ -18,6 +18,7 @@ Include this module on any Digital Ocean instance and it will expose a number of
 * digital_ocean_public_keys
 * digital_ocean_region
 * digital_ocean_vendor_data
+* digital_ocean_tags
 
 
 # Usage

@@ -28,7 +28,14 @@ def metadata(id = "")
       end
 
     else
-      metadata(key)
+      if key == 'tags/'
+        # Fetch tags as a single array.
+        value = open("http://169.254.169.254/metadata/v1/tags").read.split("\n")
+        symbol = "digital_ocean_tags".to_sym
+        Facter.add(symbol) { setcode { value } }
+      else
+        metadata(key)
+      end
     end
   end
 end
