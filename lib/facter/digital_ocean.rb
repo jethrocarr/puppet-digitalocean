@@ -14,18 +14,25 @@ def metadata(id = "")
     split("\n").each do |o|
     key = "#{id}#{o.gsub(/\=.*$/, '/')}"
     if key[-1..-1] != '/'
+
+      # We exclude the user/vendor data. This is intentional, this data often has a
+      # bad habit of triggering issues inside Facter due to bad parsing once saved into
+      # YAML files and is best left out. You can always pull it on demand/as needed
+      # with curl http://169.254.169.254/metadata/v1/user-data if you ever do need it
+      if key == "user-data"
+        next
+      end
+      if key == "vendor-data"
+        next
+      end
+
+      # Fetch the data.
       value = open("http://169.254.169.254/metadata/v1/#{key}").read.
         split("\n")
       value = value.size>1 ? value : value.first
       symbol = "digital_ocean_#{key.gsub(/\-|\//, '_')}".to_sym
-  
-      # We exclude the user data. This is intentional, the user data often has a
-      # bad habit of triggering issues inside Facter due to bad parsing once saved into
-      # YAML files and is best left out. You can always pull it on demand/as needed
-      # with curl http://169.254.169.254/metadata/v1/user-data if you ever do need it
-      unless key == "user-data"
-        Facter.add(symbol) { setcode { value } }
-      end
+
+      Facter.add(symbol) { setcode { value } }
 
     else
       if key == 'tags/'
