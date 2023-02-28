@@ -10,7 +10,7 @@ require 'open-uri'
 require 'timeout'
 
 def metadata(id = "")
-  open("http://169.254.169.254/metadata/v1/#{id||=''}").read.
+  URI.open("http://169.254.169.254/metadata/v1/#{id||=''}").read.
     split("\n").each do |o|
     key = "#{id}#{o.gsub(/\=.*$/, '/')}"
     if key[-1..-1] != '/'
@@ -27,7 +27,7 @@ def metadata(id = "")
       end
 
       # Fetch the data.
-      value = open("http://169.254.169.254/metadata/v1/#{key}").read.
+      value = URI.open("http://169.254.169.254/metadata/v1/#{key}").read.
         split("\n")
       value = value.size>1 ? value : value.first
       symbol = "digital_ocean_#{key.gsub(/\-|\//, '_')}".to_sym
@@ -37,7 +37,7 @@ def metadata(id = "")
     else
       if key == 'tags/'
         # Fetch tags as a single array.
-        value = open("http://169.254.169.254/metadata/v1/tags").read.split("\n")
+        value = URI.open("http://169.254.169.254/metadata/v1/tags").read.split("\n")
         symbol = "digital_ocean_tags".to_sym
         Facter.add(symbol) { setcode { value } }
       else
